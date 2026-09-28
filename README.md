@@ -9,7 +9,6 @@
 ![Next.js](https://img.shields.io/badge/Next.js-16-000?logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-149eca?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white)
-![Vercel](https://img.shields.io/badge/Deploy-Vercel-000?logo=vercel&logoColor=white)
 ![Storage](https://img.shields.io/badge/Storage-Vercel%20Blob%20(private)-2b2b2b)
 ![Version](https://img.shields.io/badge/version-1.7.0-79f2bf)
 ![License](https://img.shields.io/badge/license-All%20rights%20reserved-555)

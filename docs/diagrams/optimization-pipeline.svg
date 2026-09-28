@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="620" viewBox="0 0 1280 620" role="img" aria-labelledby="t d">
+<title id="t">Optimization pipeline</title><desc id="d">Findings become a reviewable pull request on the site&#x27;s own repository; nothing is pushed to the default branch.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#79a89b"/></marker>
+<pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#131c1a" stroke-width="1"/></pattern>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#79f2bf" stop-opacity=".10"/><stop offset=".55" stop-color="#79f2bf" stop-opacity="0"/></linearGradient>
+<style>
+text { font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+.h1 { font-size: 22px; font-weight: 700; fill: #f4f7f5; letter-spacing: -.02em; }
+.h2 { font-size: 13px; fill: #8e9d99; }
+.kick { font-size: 11px; font-weight: 700; fill: #79f2bf; letter-spacing: .14em; }
+.glabel { font-size: 10.5px; font-weight: 700; fill: #6f837e; letter-spacing: .12em; }
+.bt { font-size: 14px; font-weight: 650; text-anchor: middle; }
+.bs { font-size: 11.5px; fill: #93a5a0; text-anchor: middle; }
+.bm { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 10.5px; fill: #79c9a8; text-anchor: middle; }
+.al { font-size: 10.5px; fill: #b7c7c2; text-anchor: middle; }
+.note { font-size: 11.5px; fill: #7d8f8a; }
+.tree { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 13px; fill: #d9e4e1; }
+.treec { font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; fill: #7d8f8a; }
+</style>
+</defs>
+<rect width="1280" height="620" rx="18" fill="#0a0f0e"/>
+<rect width="1280" height="620" rx="18" fill="url(#grid)"/>
+<rect width="1280" height="620" rx="18" fill="url(#glow)"/>
+<text x="36" y="44" class="kick">ROISTATION MASTER PANEL</text>
+<text x="36" y="72" class="h1">Optimization pipeline</text>
+<text x="36" y="94" class="h2">Findings become a reviewable pull request on the site&#x27;s own repository; nothing is pushed to the default branch.</text>
+<rect x="40" y="150" width="200" height="76" rx="11" fill="#0f1824" stroke="#3b6fb0"/>
+<text x="140.0" y="184.0" class="bt" fill="#e8f1ff">Selected findings</text>
+<text x="140.0" y="202.0" class="bs">one site or a batch</text>
+<rect x="280" y="150" width="220" height="76" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="390.0" y="177.0" class="bt" fill="#eafff5">planFixes()</text>
+<text x="390.0" y="195.0" class="bs">latest scan + business profile</text>
+<text x="390.0" y="213.0" class="bm">lib/seo/fixes.ts</text>
+<path d="M 240 188 L 280 188" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="560" y="130" width="300" height="60" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="710.0" y="156.0" class="bt" fill="#eafff5">auto</text>
+<text x="710.0" y="174.0" class="bs">robots · sitemap · llms.txt · metadata · JSON-LD</text>
+<path d="M 500 188 L 530 188 L 530 160 L 560 160" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="560" y="202" width="300" height="60" rx="11" fill="#18142a" stroke="#7c68c9"/>
+<text x="710.0" y="228.0" class="bt" fill="#f1edff">ai</text>
+<text x="710.0" y="246.0" class="bs">FAQ · local content → AI screen, human approval</text>
+<path d="M 500 188 L 530 188 L 530 232 L 560 232" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="560" y="274" width="300" height="60" rx="11" fill="#0e1413" stroke="#1f2a28"/>
+<text x="710.0" y="300.0" class="bt" fill="#c7d2cf">guided</text>
+<text x="710.0" y="318.0" class="bs">steps listed in the PR description</text>
+<path d="M 500 188 L 530 188 L 530 304 L 560 304" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="920" y="150" width="320" height="76" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="1080.0" y="177.0" class="bt" fill="#eef4f2">Read repository tree</text>
+<text x="1080.0" y="195.0" class="bs">skip files that already exist</text>
+<text x="1080.0" y="213.0" class="bm">lib/github/api.ts</text>
+<path d="M 860 160 L 920 188" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40" y="380" width="220" height="76" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="150.0" y="414.0" class="bt" fill="#eef4f2">Blobs → tree → commit</text>
+<text x="150.0" y="432.0" class="bs">Git Data API</text>
+<rect x="300" y="380" width="220" height="76" rx="11" fill="#18142a" stroke="#7c68c9"/>
+<text x="410.0" y="414.0" class="bt" fill="#f1edff">New branch + PR</text>
+<text x="410.0" y="432.0" class="bs">one PR per site</text>
+<rect x="560" y="380" width="220" height="76" rx="11" fill="#0f1824" stroke="#3b6fb0"/>
+<text x="670.0" y="414.0" class="bt" fill="#e8f1ff">ROISTATION_* env</text>
+<text x="670.0" y="432.0" class="bs">set via Vercel API</text>
+<rect x="820" y="380" width="200" height="76" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="920.0" y="414.0" class="bt" fill="#eef4f2">Preview deploy</text>
+<text x="920.0" y="432.0" class="bs">reviewed by a person</text>
+<rect x="1060" y="380" width="180" height="76" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="1150.0" y="414.0" class="bt" fill="#eafff5">Merge</text>
+<text x="1150.0" y="432.0" class="bs">production deploy</text>
+<path d="M 1080 226 L 1080 352 L 150 352 L 150 380" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 260 418 L 300 418" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 520 418 L 560 418" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 780 418 L 820 418" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 1020 418 L 1060 418" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="560" y="510" width="680" height="60" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="900.0" y="544.0" class="bt" fill="#eafff5">Automatic re-scan after the new deployment → score history shows the delta</text>
+<path d="M 1150 456 L 1150 510" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

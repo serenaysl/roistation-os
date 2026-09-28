@@ -1,0 +1,13 @@
+{
+  "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/vercel-sync",
+      "schedule": "13 3 * * *"
+    },
+    {
+      "path": "/api/cron/seo-scan",
+      "schedule": "41 4 * * *"
+    }
+  ]
+}

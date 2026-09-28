@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="t d">
+<title id="t">Deployment awareness</title><desc id="d">The panel follows every client deployment and keeps publishing status, verification and audits in sync with it.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#79a89b"/></marker>
+<pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#131c1a" stroke-width="1"/></pattern>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#79f2bf" stop-opacity=".10"/><stop offset=".55" stop-color="#79f2bf" stop-opacity="0"/></linearGradient>
+<style>
+text { font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+.h1 { font-size: 22px; font-weight: 700; fill: #f4f7f5; letter-spacing: -.02em; }
+.h2 { font-size: 13px; fill: #8e9d99; }
+.kick { font-size: 11px; font-weight: 700; fill: #79f2bf; letter-spacing: .14em; }
+.glabel { font-size: 10.5px; font-weight: 700; fill: #6f837e; letter-spacing: .12em; }
+.bt { font-size: 14px; font-weight: 650; text-anchor: middle; }
+.bs { font-size: 11.5px; fill: #93a5a0; text-anchor: middle; }
+.bm { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 10.5px; fill: #79c9a8; text-anchor: middle; }
+.al { font-size: 10.5px; fill: #b7c7c2; text-anchor: middle; }
+.note { font-size: 11.5px; fill: #7d8f8a; }
+.tree { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 13px; fill: #d9e4e1; }
+.treec { font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; fill: #7d8f8a; }
+</style>
+</defs>
+<rect width="1280" height="560" rx="18" fill="#0a0f0e"/>
+<rect width="1280" height="560" rx="18" fill="url(#grid)"/>
+<rect width="1280" height="560" rx="18" fill="url(#glow)"/>
+<text x="36" y="44" class="kick">ROISTATION MASTER PANEL</text>
+<text x="36" y="72" class="h1">Deployment awareness</text>
+<text x="36" y="94" class="h2">The panel follows every client deployment and keeps publishing status, verification and audits in sync with it.</text>
+<rect x="40" y="150" width="180" height="70" rx="11" fill="#18142a" stroke="#7c68c9"/>
+<text x="130.0" y="181.0" class="bt" fill="#f1edff">git push</text>
+<text x="130.0" y="199.0" class="bs">client repository</text>
+<rect x="260" y="150" width="200" height="70" rx="11" fill="#0f1824" stroke="#3b6fb0"/>
+<text x="360.0" y="181.0" class="bt" fill="#e8f1ff">Vercel build</text>
+<text x="360.0" y="199.0" class="bs">production / preview</text>
+<rect x="500" y="130" width="240" height="110" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="620.0" y="165.0" class="bt" fill="#eef4f2">Signals</text>
+<text x="620.0" y="183.0" class="bs">webhook (instant)</text>
+<text x="620.0" y="199.0" class="bs">panel poll · 2 min</text>
+<text x="620.0" y="215.0" class="bs">full sync · 10 min · cron daily</text>
+<rect x="780" y="150" width="220" height="70" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="890.0" y="174.0" class="bt" fill="#eafff5">syncVercel()</text>
+<text x="890.0" y="192.0" class="bs">create-only lock object</text>
+<text x="890.0" y="210.0" class="bm">lib/vercel/sync.ts</text>
+<rect x="1040" y="150" width="200" height="70" rx="11" fill="#1f1a0e" stroke="#b98a2c"/>
+<text x="1140.0" y="181.0" class="bt" fill="#fff6e3">Project records</text>
+<text x="1140.0" y="199.0" class="bs">one object per project</text>
+<path d="M 220 185 L 260 185" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 460 185 L 500 185" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 740 185 L 780 185" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 1000 185 L 1040 185" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="120" y="320" width="240" height="80" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="240.0" y="348.0" class="bt" fill="#eef4f2">Live status</text>
+<text x="240.0" y="366.0" class="bs">connected · deploying · failed</text>
+<text x="240.0" y="382.0" class="bs">missing-domain · offline</text>
+<rect x="400" y="320" width="240" height="80" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="520.0" y="349.0" class="bt" fill="#eef4f2">verifySite()</text>
+<text x="520.0" y="367.0" class="bs">Vercel first → verify endpoint</text>
+<text x="520.0" y="385.0" class="bm">→ widget marker</text>
+<rect x="680" y="320" width="240" height="80" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="800.0" y="349.0" class="bt" fill="#eef4f2">Event log</text>
+<text x="800.0" y="367.0" class="bs">deployments · scans · PRs</text>
+<text x="800.0" y="385.0" class="bm">vercel/events/&lt;key&gt;/&lt;ts&gt;.json</text>
+<rect x="960" y="320" width="280" height="80" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="1100.0" y="356.0" class="bt" fill="#eafff5">SEO re-scan</text>
+<text x="1100.0" y="374.0" class="bs">when the production deployment changed</text>
+<path d="M 1140 220 L 1140 270 L 240 270 L 240 320" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 360 360 L 400 360" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 640 360 L 680 360" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 920 360 L 960 360" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="400" y="450" width="520" height="60" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="660.0" y="476.0" class="bt" fill="#eafff5">Publishable site</text>
+<text x="660.0" y="494.0" class="bs">a Ready production deploy + reachable domain; re-checked before every publish</text>
+<path d="M 520 400 L 620 450" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

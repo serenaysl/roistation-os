@@ -1,0 +1,26 @@
+Copyright (c) 2026 Serenay Uslu. All rights reserved.
+
+This repository and all of its contents — source code, documentation, diagrams,
+images and other assets — are the proprietary work of Serenay Uslu.
+
+The source is made publicly visible for the purpose of review, evaluation and
+reference only (for example, as part of a professional portfolio). Viewing the
+code and forking it on GitHub solely for that purpose is permitted, as allowed by
+the GitHub Terms of Service.
+
+No other rights are granted. Without prior written permission from the copyright
+holder, you may not copy, modify, merge, publish, distribute, sublicense, sell,
+deploy or otherwise use this software or any substantial portion of it, in source
+or compiled form, for any commercial or non-commercial purpose.
+
+Third-party packages referenced in package.json remain under their own licenses.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+For licensing enquiries, contact the author through the GitHub profile that hosts
+this repository.

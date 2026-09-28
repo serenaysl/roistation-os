@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="620" viewBox="0 0 1280 620" role="img" aria-labelledby="t d">
+<title id="t">Authentication and request guards</title><desc id="d">A single administrator account; each machine caller has its own credential and check.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#79a89b"/></marker>
+<pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#131c1a" stroke-width="1"/></pattern>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#79f2bf" stop-opacity=".10"/><stop offset=".55" stop-color="#79f2bf" stop-opacity="0"/></linearGradient>
+<style>
+text { font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+.h1 { font-size: 22px; font-weight: 700; fill: #f4f7f5; letter-spacing: -.02em; }
+.h2 { font-size: 13px; fill: #8e9d99; }
+.kick { font-size: 11px; font-weight: 700; fill: #79f2bf; letter-spacing: .14em; }
+.glabel { font-size: 10.5px; font-weight: 700; fill: #6f837e; letter-spacing: .12em; }
+.bt { font-size: 14px; font-weight: 650; text-anchor: middle; }
+.bs { font-size: 11.5px; fill: #93a5a0; text-anchor: middle; }
+.bm { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 10.5px; fill: #79c9a8; text-anchor: middle; }
+.al { font-size: 10.5px; fill: #b7c7c2; text-anchor: middle; }
+.note { font-size: 11.5px; fill: #7d8f8a; }
+.tree { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 13px; fill: #d9e4e1; }
+.treec { font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; fill: #7d8f8a; }
+</style>
+</defs>
+<rect width="1280" height="620" rx="18" fill="#0a0f0e"/>
+<rect width="1280" height="620" rx="18" fill="url(#grid)"/>
+<rect width="1280" height="620" rx="18" fill="url(#glow)"/>
+<text x="36" y="44" class="kick">ROISTATION MASTER PANEL</text>
+<text x="36" y="72" class="h1">Authentication and request guards</text>
+<text x="36" y="94" class="h2">A single administrator account; each machine caller has its own credential and check.</text>
+<rect x="40" y="150" width="170" height="70" rx="11" fill="#0f1824" stroke="#3b6fb0"/>
+<text x="125.0" y="181.0" class="bt" fill="#e8f1ff">Admin</text>
+<text x="125.0" y="199.0" class="bs">password</text>
+<rect x="250" y="140" width="260" height="90" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="380.0" y="173.0" class="bt" fill="#eef4f2">POST /api/session</text>
+<text x="380.0" y="191.0" class="bs">same-origin check</text>
+<text x="380.0" y="207.0" class="bs">rate limit 10 / 15 min / IP</text>
+<rect x="550" y="140" width="260" height="90" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="680.0" y="173.0" class="bt" fill="#eef4f2">safeEqual(password)</text>
+<text x="680.0" y="191.0" class="bs">SHA-256 digests</text>
+<text x="680.0" y="207.0" class="bs">timingSafeEqual</text>
+<rect x="850" y="140" width="390" height="90" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="1045.0" y="173.0" class="bt" fill="#eafff5">Session cookie roi_admin</text>
+<text x="1045.0" y="191.0" class="bs">&lt;expires&gt;.&lt;HMAC-SHA256&gt;  ·  8 h</text>
+<text x="1045.0" y="207.0" class="bs">httpOnly · sameSite=strict · secure on Vercel</text>
+<path d="M 210 185 L 250 185" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 510 185 L 550 185" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 810 185 L 850 185" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="250" y="300" width="400" height="80" rx="11" fill="#0f201a" stroke="#3fbf8c"/>
+<text x="450.0" y="328.0" class="bt" fill="#eafff5">requireAdmin(request)</text>
+<text x="450.0" y="346.0" class="bs">verify signature and expiry</text>
+<text x="450.0" y="362.0" class="bs">mutations: Origin must be a trusted origin</text>
+<rect x="700" y="300" width="540" height="80" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="970.0" y="336.0" class="bt" fill="#eef4f2">Route handler</text>
+<text x="970.0" y="354.0" class="bs">domain services · storage · external APIs</text>
+<path d="M 1045 230 L 1045 265 L 450 265 L 450 300" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 650 340 L 700 340" fill="none" stroke="#5f7c75" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40" y="420" width="1200" height="160" rx="16" fill="#0e1413" stroke="#1f2a28" stroke-dasharray="4 5"/>
+<text x="56" y="444" class="glabel">MACHINE CALLERS</text>
+<rect x="60" y="460" width="270" height="90" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="195.0" y="493.0" class="bt" fill="#eef4f2">Vercel Cron</text>
+<text x="195.0" y="511.0" class="bs">Authorization: Bearer</text>
+<text x="195.0" y="527.0" class="bs">CRON_SECRET ≥ 16 chars</text>
+<rect x="350" y="460" width="270" height="90" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="485.0" y="493.0" class="bt" fill="#eef4f2">Vercel webhook</text>
+<text x="485.0" y="511.0" class="bs">x-vercel-signature</text>
+<text x="485.0" y="527.0" class="bs">HMAC-SHA1 of raw body</text>
+<rect x="640" y="460" width="270" height="90" rx="11" fill="#111a18" stroke="#26332f"/>
+<text x="775.0" y="493.0" class="bt" fill="#eef4f2">Public forms</text>
+<text x="775.0" y="511.0" class="bs">signed form token</text>
+<text x="775.0" y="527.0" class="bs">HMAC · 10 submissions / h / IP</text>
+<rect x="930" y="460" width="290" height="90" rx="11" fill="#1f1a0e" stroke="#b98a2c"/>
+<text x="1075.0" y="493.0" class="bt" fill="#fff6e3">Stored tokens</text>
+<text x="1075.0" y="511.0" class="bs">Vercel PAT · GitHub token</text>
+<text x="1075.0" y="527.0" class="bs">AES-256-GCM, key from session secret</text>
+</svg>

@@ -31,6 +31,19 @@ Direction for the next releases. Items are grouped by theme and roughly ordered 
 - [ ] Per-page scan history and diff of findings between scans.
 - [ ] Measure AI-search citations as an outcome metric next to readiness signals.
 
+## Client Portal & analytics
+
+Planned only; none of these are available yet. Details in [docs/client-portal](docs/client-portal/README.md#planned--roadmap).
+
+- [ ] Google Maps / Local Pack tracking and a geo-grid visibility map.
+- [ ] Google Search Console metrics and GA4 traffic integration.
+- [ ] Google Business Profile metrics.
+- [ ] AI visibility tracking (ChatGPT, Gemini, Claude, Perplexity).
+- [ ] Ranking history charts, keyword detail view and advanced analytics in the portal (designs in the demo screenshots).
+- [ ] Automated PDF reports and weekly email reports.
+- [ ] White-label custom domain for the portal.
+- [ ] Client notification system.
+
 ## Operations
 
 - [ ] Vercel sync lock with owner token and compare-and-swap takeover.

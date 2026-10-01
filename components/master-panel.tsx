@@ -570,8 +570,21 @@ function GithubSettings({onNotice}:{onNotice:(value:string)=>void}) {
   useEffect(()=>{requestApi<{configured:boolean;source:"env"|"panel"|null;login:string|null}>("/api/github").then(setState).catch(()=>setState(null));},[]);
   async function call(body:Record<string,unknown>,message:string) {
     setBusy(true);
-    try {setState(await requestApi("/api/github",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)}));setToken("");onNotice(message);}
-    catch(error) {onNotice(error instanceof Error ? error.message : "GitHub işlemi tamamlanamadı.");}
+try {
+  setState(
+    await requestApi<{
+      configured: boolean;
+      source: "env" | "panel" | null;
+      login: string | null;
+    }>("/api/github", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    })
+  );
+  setToken("");
+  onNotice(message);
+}    catch(error) {onNotice(error instanceof Error ? error.message : "GitHub işlemi tamamlanamadı.");}
     finally {setBusy(false);}
   }
   return <div className="panel manager-editor vercel-settings"><h2>GitHub (SEO optimizasyon PR'ları)</h2>

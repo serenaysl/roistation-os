@@ -13,7 +13,7 @@
 ![Version](https://img.shields.io/badge/version-1.7.0-79f2bf)
 ![License](https://img.shields.io/badge/license-All%20rights%20reserved-555)
 
-[Overview](#project-overview) · [Features](#features) · [Screenshots](#screenshots) · [Architecture](#architecture) · [Getting started](#installation) · [Deployment](#deployment) · [Behind the architecture](#behind-the-architecture) · [Docs](docs/README.md)
+[Overview](#project-overview) · [Features](#features) · [Screenshots](#screenshots) · [Client Portal](#client-portal--automatic-rank-tracking) · [Architecture](#architecture) · [Getting started](#installation) · [Deployment](#deployment) · [Behind the architecture](#behind-the-architecture) · [Docs](docs/README.md)
 
 </div>
 
@@ -120,6 +120,208 @@ The interface is in Turkish, the language of the agency's market. Code, comments
 </details>
 
 All screenshots are rendered from the real components with the fictional demo catalog.
+
+---
+
+## Client Portal & Automatic Rank Tracking
+
+The Master Panel is where the agency works. The **Client Portal** is where the agency's customers see the result. Each customer gets a private, read-only performance dashboard for their own website: keyword rankings, weekly movement and tracking history, without ever touching the Master Panel. The **Automatic Rank Tracker** fills that dashboard with fresh Google rankings every week.
+
+> **Demo data.** Every screenshot in this section uses a fictional business (*ROIstation Demo Hotel*, `demo-hotel.example`) and invented rankings. They show how the screens work, not results for a real client. The screenshots show the panel's Turkish interface; the text below uses the English names of each control. No ranking improvement is guaranteed. Each feature is marked **Available**, **Preview** (a design for data that is already stored but not yet shown in the portal) or **Planned**. See the [status table](docs/client-portal/README.md#feature-status).
+
+### How it fits into the Master Panel
+
+```text
+ROIstation Master Panel          agency / admin side
+        ↓
+SEO / GEO Operations             content, knowledge center, technical fixes
+        ↓
+Rank Tracking Provider           DataForSEO (Google organic, location + device)
+        ↓
+Ranking Snapshots                append-only, one per run, private Vercel Blob
+        ↓
+Client Portal                    /portal/<site-id>, access code, noindex
+        ↓
+Customer Dashboard               Top 3 / Top 10, movement, history
+```
+
+- **Master Panel = agency/admin side.** Sites, publishing, SEO & GEO operations, portal access, keyword lists and provider credentials are all managed here.
+- **Client Portal = customer side.** It reads the ranking snapshots of one site and nothing else.
+- **Customers never access the Master Panel.** A portal session is signed for one site id only. It grants no admin rights and cannot open another site's portal.
+
+### Client Portal
+
+- **One site per client.** Every portal is bound to a single registered site. A customer only ever sees their own website.
+- **Per-site on/off switch.** Portal access is turned on or off for each site from the **Client Portal** screen in the Master Panel. A disabled portal returns *404*.
+- **Secure, separate access.** Each site has its own access code. Only its SHA-256 hash is stored, and the code is compared in constant time. A successful sign-in sets an HMAC-signed, HttpOnly session cookie for that site (30 days), signed with `CLIENT_PORTAL_SESSION_SECRET` (or `PANEL_SESSION_SECRET` when that is not set). Rotating the code is one field in the panel.
+- **No technical interface.** The customer sees no Vercel projects, deployments, runtime state, prompts or settings, only a simplified performance dashboard.
+- **Private by default.** Portal pages are `noindex, nofollow` and rendered dynamically on every request.
+
+### Automatic Rank Tracker
+
+- **Keywords per website.** Each site has its own keyword list, up to 100 rows in the form `keyword | location | mobile/desktop`.
+- **Location-based tracking.** Every row has its own city or region (for example *Ayvalık, Balıkesir*). The country is added automatically.
+- **Mobile and desktop.** Each row is checked on the device it names. Track both devices by adding the keyword twice.
+- **Google organic rankings.** Positions come from Google's organic results, with a selectable language code and search depth (Top 50 / 100 / 200). A keyword that is not found within that depth is shown as *100+*.
+- **Weekly history.** Every run appends a dated snapshot. Snapshots are never overwritten, so the full ranking history is kept.
+- **Scheduled checks.** A Vercel Cron job (`/api/cron/rank-tracker`, every Monday 07:15 UTC / 10:15 Türkiye, protected by `CRON_SECRET`) checks every site that has tracking enabled. **Run check now** runs a check on demand.
+- **Provider-ready architecture.** The tracker currently uses the **DataForSEO** SERP API. Credentials are entered once in the panel and stored sealed with AES-256-GCM in the private Blob store. They are never returned to the browser and never stored in environment variables or source control. The provider layer is isolated, so other SERP data providers can be added without changing the customer dashboard.
+
+### Client Dashboard KPIs
+
+| KPI | What it tells the client | Status |
+|---|---|---|
+| Top 3 keywords | Keywords currently in Google positions 1–3 | Available |
+| Top 10 keywords | Keywords on the first results page | Available |
+| Rising keywords | Keywords that moved up since the previous check | Available |
+| Falling keywords | Keywords that moved down since the previous check | Available |
+| Previous position | Position in the previous snapshot | Available |
+| Current position | Position in the latest snapshot | Available |
+| Weekly movement | Positions gained (`+3`) or lost (`-2`) week over week | Available |
+| Ranking history | Every tracking period with its date and Top 10 count | Available (list), Preview (charts) |
+| Average position | Mean position across all tracked keywords | Preview |
+| SEO / GEO publication count | Guide pages published to the site through the Master Panel | Preview |
+| Website health / technical status | Runtime, publishing, knowledge, sitemap, schema and indexability checks | Preview |
+
+**Example.** For the keyword `ayvalik hotel`, a previous position of **8** and a current position of **5** is shown as **+3 positions**: the keyword moved up three places. Because every snapshot is kept, the same change can also be drawn as a line chart across weeks. The Preview screens below show that view.
+
+### Client Portal Overview
+
+![ROIstation Client Portal Overview](docs/client-portal/screenshots/client-portal-overview.png)
+
+This is the first screen a customer sees after signing in with their access code. It shows only their own site: Top 3 and Top 10 counts, how many keywords rose or fell this week, and a table of previous vs current positions with location and device. It answers the client's first question, *"are we moving?"*, without any technical detail. This layout matches the shipped portal.
+
+### Keyword Ranking Dashboard
+
+![ROIstation Keyword Ranking Dashboard](docs/client-portal/screenshots/keyword-ranking-dashboard.png)
+
+All tracked keywords on one screen, with location, device, previous and current position, weekly movement and a four-week trend line. The client can see which searches already bring them to page one and which are still climbing. The KPI row adds average position and this week's net movement. *Preview: the trend column and average position build on stored snapshots.*
+
+### Weekly Ranking History
+
+![ROIstation Weekly Ranking History](docs/client-portal/screenshots/weekly-ranking-history.png)
+
+Weekly snapshots drawn as one line per keyword (position 1 at the top), next to the number of keywords in the Top 10 each week. For example, `ayvalik hotel` moves 12 → 9 → 7 → 5 and `ayvalik boutique hotel` moves 8 → 7 → 5 → 4. A trend over several weeks is more useful to the client than a single check. *Preview.*
+
+### Keyword Detail View
+
+![ROIstation Keyword Detail View](docs/client-portal/screenshots/client-keyword-detail.png)
+
+A single keyword in depth: current, previous and best position, weekly and four-week change, mobile vs desktop, and positions by location (Ayvalık, Edremit, Gömeç). Every weekly check is listed with its date and source. This helps explain *why* a keyword moved and where local visibility is weaker. *Preview.*
+
+### SEO / GEO Performance Overview
+
+![ROIstation SEO / GEO Performance Overview](docs/client-portal/screenshots/seo-geo-performance-overview.png)
+
+This screen connects rankings to the work behind them. It shows visibility trend, Top 10 coverage, the SEO/GEO guide pages published through the Master Panel (with dates and paths) and a technical health summary with a 0–100 score. The client sees what was published and whether the site is technically sound. *Preview: publications and health already exist in the Master Panel. Showing them in the portal is not shipped yet.*
+
+### Advanced SEO / GEO Report
+
+![ROIstation Advanced SEO / GEO Report](docs/client-portal/screenshots/advanced-seo-geo-report.png)
+
+A sample monthly report for 01–30 September. It contains KPI cards, average-position and Top 10 / Top 3 trends, a start-vs-end ranking table, keyword winners and losers, a device comparison, a written performance summary and technical health. It gives agency and client a shared view of the month. *Preview: report layout. PDF export is planned.* The same report as Markdown: [docs/client-portal/demo-report.md](docs/client-portal/demo-report.md).
+
+### Master Panel: Rank Tracker Setup
+
+![ROIstation Master Panel Rank Tracker Setup](docs/client-portal/screenshots/master-panel-rank-tracker-setup.png)
+
+The agency side of the portal. Here the agency picks the site, turns its portal on, sets or rotates the access code, copies the customer link, connects DataForSEO once (shown here as connected, with the fields empty because stored credentials are never sent back), and defines the keyword list with language and search depth. **Run check now** runs a check immediately. This layout matches the shipped panel screen.
+
+Full documentation: [docs/client-portal/README.md](docs/client-portal/README.md).
+
+---
+
+## Advanced SEO / GEO Analytics
+
+Ranking positions are the raw material. The analytics layer turns weekly snapshots, publications and technical scans into answers a client can act on. All metrics below can be computed from data the Master Panel already stores. Until they appear in the portal they are marked **Preview** in the status table. Formulas and worked examples are in [docs/client-portal/advanced-analytics.md](docs/client-portal/advanced-analytics.md).
+
+### Visibility Trend
+
+How visible the site is across all tracked keywords, week by week. Each position is weighted by its typical click-through share, so moving from 4 to 1 counts for more than moving from 48 to 45. The trend shows whether overall visibility is growing, not just individual keywords.
+
+### Top 10 Coverage
+
+The share of tracked keywords on Google's first page: `keywords in Top 10 ÷ tracked keywords`. Example: 8 of 12 keywords means **67% Top 10 coverage**.
+
+### Top 3 Coverage
+
+The number of keywords currently in positions 1–3, where most clicks happen. Example: **3 keywords in Top 3**.
+
+### Ranking Momentum
+
+The total number of positions gained or lost over a period, summed across keywords (gains minus losses). Example: **+28 total ranking positions gained this week**. A positive value means the keyword set as a whole is moving up.
+
+### Keyword Winners
+
+The keywords with the strongest upward movement in the period, for example `ayvalik family hotel` 20 → 3 (+17).
+
+### Keyword Losers
+
+The keywords that declined in the period, so they can be reviewed early, for example `gomec hotel` 11 → 14 (−3).
+
+### Average Position
+
+The mean position across all tracked keywords. A lower number is better. Example: previous average **14.2**, current average **8.7**.
+
+### Local SEO
+
+Every keyword row carries its own location, so the same search can be tracked in several places, for example:
+
+- Ayvalık, Balıkesir
+- Gömeç, Balıkesir
+- Edremit, Balıkesir
+
+This shows where a local business is strong and where nearby towns still need location-specific content.
+
+### Device Comparison
+
+Mobile and desktop rankings often differ. Tracking the same keyword on both devices shows the gap. For example, `ayvalik hotel` at **5 on mobile** and **7 on desktop**.
+
+### SEO / GEO Publications
+
+How many SEO/GEO guide pages (`/rehber/<slug>` and knowledge-center articles) were published to the site through the Master Panel, and when. Placed next to ranking history, this shows the content work behind the movement.
+
+### Website Health
+
+A compact technical summary for the client dashboard, sourced from the Master Panel's readiness checks and live SEO & GEO scans:
+
+| Indicator | Meaning |
+|---|---|
+| Runtime Connected | The ROIstation Runtime on the site answers and is verified |
+| Publish Ready | All readiness checks passed; the site can receive publications |
+| Knowledge Ready | The site's knowledge center is live |
+| Sitemap | A valid sitemap is reachable and lists the published pages |
+| Schema | Structured data (JSON-LD) is present and valid |
+| Metadata | Titles and meta descriptions are present and unique |
+| Canonical | Canonical URLs are set correctly |
+| Indexability | Pages are crawlable and not blocked by `robots` or `noindex` |
+
+The demo report summarizes these as **Technical SEO health: 94/100**.
+
+---
+
+## Planned / Roadmap
+
+The following Client Portal and analytics features are **planned**. They are **not available** in the current release and are listed here as direction only, with no committed dates.
+
+| Feature | Status |
+|---|---|
+| Google Maps / Local Pack tracking | Planned |
+| Geo-grid visibility map | Planned |
+| Google Search Console metrics (clicks, impressions, CTR) | Planned |
+| GA4 traffic integration | Planned |
+| Google Business Profile metrics | Planned |
+| AI visibility tracking | Planned |
+| ChatGPT visibility | Planned |
+| Gemini visibility | Planned |
+| Claude visibility | Planned |
+| Perplexity visibility | Planned |
+| Automated PDF reports | Planned |
+| Weekly email reports | Planned |
+| White-label custom domain for the portal | Planned |
+| Client notification system | Planned |
+
+The roadmap for the whole project is in [ROADMAP.md](ROADMAP.md).
 
 ---
 
@@ -285,6 +487,7 @@ Production checklist, security headers, rollback and the legacy-storage migratio
 | [Authentication](docs/Authentication.md) · [Permissions](docs/Permissions.md) · [Deployment](docs/Deployment.md) | Security and operations |
 | [Component library](docs/Component-Library.md) · [State management](docs/State-Management.md) · [Developer guide](docs/Developer-Guide.md) | Working on the code |
 | [Code showcase](code-showcase/README.md) · [Examples](examples/README.md) | Annotated walkthroughs and runnable extracts |
+| [Client Portal](docs/client-portal/README.md) · [Advanced analytics](docs/client-portal/advanced-analytics.md) · [Demo report](docs/client-portal/demo-report.md) | Customer portal, automatic rank tracking and SEO / GEO analytics |
 
 ---
 
@@ -357,6 +560,7 @@ Highlights from [ROADMAP.md](ROADMAP.md):
 - [ ] Google Business Profile and RSS publish channels
 - [ ] Core Web Vitals field-data trends and alerting
 - [ ] Scheduled batch optimization with PR status tracking
+- [ ] Client Portal analytics: Search Console, GA4, Local Pack and AI-visibility metrics, PDF and weekly email reports — see [Planned / Roadmap](#planned--roadmap)
 
 ---
 

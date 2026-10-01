@@ -28,6 +28,14 @@ The panel UI is in Turkish; the documentation is in English and quotes Turkish l
 | [Component-Library.md](Component-Library.md) | Panel UI components and the embed widget |
 | [State-Management.md](State-Management.md) | How the panel manages client state, polling and server synchronisation |
 
+## Client Portal & analytics
+
+| Document | What it covers |
+|---|---|
+| [client-portal/README.md](client-portal/README.md) | Client Portal, Automatic Rank Tracker, Master Panel vs portal, feature status, data model, security |
+| [client-portal/advanced-analytics.md](client-portal/advanced-analytics.md) | Visibility, coverage, momentum, average position, local and device views, publications, website health |
+| [client-portal/demo-report.md](client-portal/demo-report.md) | Sample monthly SEO / GEO report (fictional demo data) |
+
 ## Operations and security
 
 | Document | What it covers |

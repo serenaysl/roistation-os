@@ -265,11 +265,7 @@ The mean position across all tracked keywords. A lower number is better. Example
 
 ### Local SEO
 
-Every keyword row carries its own location, so the same search can be tracked in several places, for example:
-
-- Ayvalık, Balıkesir
-- Gömeç, Balıkesir
-- Edremit, Balıkesir
+Every keyword row carries its own location, so the same search can be tracked in several places.
 
 This shows where a local business is strong and where nearby towns still need location-specific content.
 
